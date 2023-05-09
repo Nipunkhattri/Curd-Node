@@ -35,20 +35,23 @@ const Contactlist = ({ onSubmit }: Props) => {
     const navigate = useNavigate();
     const [contacts, setContacts] = useState([]);
 
+
+    // ----------------Read the data---------------------
+
+
     useEffect(() => {
         dispatch(Getdata({navigate}))
     }, [load]);
     const [emailu,setemailu] = useState("")
 
     function handleUpdate(contact: Contact) {
-        const form = document.getElementsByClassName("formupdated");
-        form[0].classList.add('visible');
-        setemailu(contact.email);
+    //     const form = document.getElementsByClassName("formupdated");
+    //     form[0].classList.add('visible');
+    //     setemailu(contact.email);
     }
     
-    //   function handleDelete({email}) {
-    //     dispatch(deletedata({email,navigate}));
-    //   }
+    // ---------------------Delete the specific data-----------------------
+
     function handleDelete(contact: Contact) {
         dispatch(deletedata({email: contact.email,navigate}))
         .then(() => {
@@ -61,45 +64,54 @@ const Contactlist = ({ onSubmit }: Props) => {
             // setError(error);
           });
       }
+
+
+
       console.log(data);
       useEffect(()=>{
           setContacts(data);
       },[])
       console.log(contacts)
 
+
+
       const [values, setValues] = useState<FormValues>({
         name: "",
         email: "",
         contact: "",
       });
-      const [updatedvalues, setupdatedValues] = useState<FormUpdatedValue>({
-        name: "",
-        contact: "",
-      });
+      // const [updatedvalues, setupdatedValues] = useState<FormUpdatedValue>({
+      //   name: "",
+      //   contact: "",
+      // });
+      
       const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
         setValues({ ...values, [name]: value });
       };
-      const handleChangeupdate = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = event.target;
-        setupdatedValues({ ...updatedvalues, [name]: value });
-      };
+      // const handleChangeupdate = (event: React.ChangeEvent<HTMLInputElement>) => {
+      //   const { name, value } = event.target;
+      //   setupdatedValues({ ...updatedvalues, [name]: value });
+      // };
 
-      const handleSubmitupdate = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        console.log(updatedvalues,emailu);
-        dispatch(updatedata({updatedvalues,emailu,navigate}))
-        .then(() => {
-            setload("hiiiuiii");
-            // dispatch(Getdata({navigate}));
-          })
-          .catch((err) => {
-            // (false);
-            console.log(err)
-            // setError(error);
-          });
-      };
+      // const handleSubmitupdate = (event: React.FormEvent<HTMLFormElement>) => {
+      //   event.preventDefault();
+      //   console.log(updatedvalues,emailu);
+      //   dispatch(updatedata({updatedvalues,emailu,navigate}))
+      //   .then(() => {
+      //       setload("hiiiuiii");
+      //       // dispatch(Getdata({navigate}));
+      //     })
+      //     .catch((err) => {
+      //       // (false);
+      //       console.log(err)
+      //       // setError(error);
+      //     });
+      // };
     
+
+      // -----------------Add the data-------------------
+
       const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         // onSubmit(values);
@@ -116,36 +128,12 @@ const Contactlist = ({ onSubmit }: Props) => {
             // setError(error);
           });
       };
+
       console.log(values);
-      console.log(updatedvalues);
+      // console.log(updatedvalues);
   return (
     <div>
         <h1>Contact List</h1>
-        <form className="formupdated" onSubmit={handleSubmitupdate}>
-      <div className="form-group">
-        <label htmlFor="name">Name:</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          value={updatedvalues.name}
-          onChange={handleChangeupdate}
-          required
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="phone">Phone:</label>
-        <input
-          type="tel"
-          id="phone"
-          name="contact"
-          value={updatedvalues.contact}
-          onChange={handleChangeupdate}
-          required
-        />
-      </div>
-      <button type="submit" >Submit</button>
-    </form> 
         <table>
         <thead>
           <tr>
@@ -167,6 +155,7 @@ const Contactlist = ({ onSubmit }: Props) => {
         </tbody>
       </table>
       <form className="form" onSubmit={handleSubmit}>
+        <h2>Add The data</h2>
       <div className="form-group">
         <label htmlFor="name">Name:</label>
         <input
