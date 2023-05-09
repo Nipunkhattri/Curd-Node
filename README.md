@@ -36,7 +36,7 @@ POST /api/login
 | Parameter | Type      | Description                                                   |
 | :-------- | :-------- | :------------------------------------------------------------ |
 | `email`    | `string` | **Required**. email-id |
-| `password`    | `string` | **Required**. password |
+| `Password`    | `string` | **Required**. password |
 
 ---
 
@@ -49,7 +49,7 @@ no parameters
 ---
 
 ```http
-POST /api/post
+POST /api/post/
 ```
 
 | Parameter | Type      | Description                                                   |
@@ -61,7 +61,7 @@ POST /api/post
 ---
 
 ```http
-DELETE /api/remove/:email/
+DELETE /api/remove/email/ (Find the data by email as primary key)
 ```
 ```
 no-parameters
@@ -69,7 +69,7 @@ no-parameters
 
 
 ```http
-PATCH /update/:email/
+PATCH /update/email/
 ```
 | Parameter | Type      | Description                                                   |
 | :-------- | :-------- | :------------------------------------------------------------ |
