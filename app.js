@@ -1,6 +1,5 @@
 import express  from "express";
 import cors from "cors";
-import morgan from "morgan";
 import mysql from "mysql";
 import bodyParser from 'body-parser';
 import connection from "./database.js"

@@ -1,4 +1,4 @@
-import bcrypt from "bcryptjs";
+import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import connection from "../database.js"
 
@@ -7,6 +7,7 @@ const secret = "task";
 
 export const Register = async (req,res)=>{
     const { email, password } = req.body;
+    console.log(email,password);
     bcrypt.hash(password, 12, (err, hash) => {
       if (err) {
         console.error(err);
@@ -20,12 +21,9 @@ export const Register = async (req,res)=>{
           res.status(500).send('Internal server error');
           return;
         }else{
-          req.session.UserId = user.id;
-          const registeredUser = { id: results.insertId, name, email };
-          const token = jwt.sign({ Username: registeredUser.Username, id: registeredUser.id }, secret, {
-            expiresIn: "1h",
-        });
-        res.json({registeredUser,token});
+          // req.session.UserId = user.id;
+          const registeredUser = { id: results.insertId,email,password };
+        res.json(registeredUser);
         }
       });
     });
@@ -91,11 +89,15 @@ export const getdata = async (req,res)=>{
     const {email} = req.params;
     connection.query("SELECT * FROM contact_db   WHERE  email =? ",email, (err, result) => {
     if(err){console.log(err)}
-    res.send(result);  
+    else if (result.affectedRows === 0) {
+      res.status(404).send("Record not found");
+    }
+    res.send("data deleted");  
     })
 }
 export const updatedata = async (req,res)=>{
     const { email } = req.params;
+    console.log(email)
     const { name, contact } = req.body;
   
     connection.query(

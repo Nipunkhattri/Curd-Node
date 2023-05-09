@@ -19,6 +19,6 @@ router.get("/get", get);
 router.post("/post", post);
 router.delete("/remove/:email", deletedata);
 router.get("/get/:email", getdata);
-router.put("/update/:email", updatedata);
+router.patch("/update/:email", updatedata);
 
 export default router;

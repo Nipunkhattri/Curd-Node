@@ -6,6 +6,9 @@ import { Getdata, deletedata, postdata ,updatedata} from '../redux/features/apic
 import { error } from 'console';
 import './Contact.css'
 import { configureStore } from '../redux/store.js';
+// import { link } from 'fs/promises';
+import {Link} from "react-router-dom"
+import { toast } from 'react-toastify';
 
 interface Contact {
     name: string;
@@ -28,6 +31,7 @@ interface FormUpdatedValue {
   }
 
 const Contactlist = ({ onSubmit }: Props) => {
+   const { user } = useSelector((state) => state.auth);
     const { data } = useSelector((state: configureStore) => state.data);
     console.log(localStorage.getItem('data'));
     const [load,setload] = useState("hello");
@@ -109,6 +113,9 @@ const Contactlist = ({ onSubmit }: Props) => {
       //     });
       // };
     
+      const handlenavigate = () =>{
+        toast.error("login please..")
+      }
 
       // -----------------Add the data-------------------
 
@@ -129,6 +136,8 @@ const Contactlist = ({ onSubmit }: Props) => {
           });
       };
 
+      console.log(data);
+
       console.log(values);
       // console.log(updatedvalues);
   return (
@@ -143,15 +152,21 @@ const Contactlist = ({ onSubmit }: Props) => {
           </tr>
         </thead>
         <tbody>
-          {data?.map((contact: Contact) => (
-            <tr key={contact.email}>
+          {
+            user == null?  
+            
+              data?.map((contact: Contact) => (
+              <tr key={contact.email}>
               <td>{contact.name}</td>
               <td>{contact.email}</td>
               <td>{contact.contact}</td>
               <td><button onClick={() => handleUpdate(contact)}>Update</button></td>
               <td><button onClick={() => handleDelete(contact)}>Delete</button></td>
             </tr>
-          ))}
+              ))
+          :
+          <></>
+          }
         </tbody>
       </table>
       <form className="form" onSubmit={handleSubmit}>
@@ -189,7 +204,14 @@ const Contactlist = ({ onSubmit }: Props) => {
           required
         />
       </div>
-      <button type="submit">Submit</button>
+      {
+        user?
+        <button type="submit">Submit</button>
+        :
+        <Link to="/Login">
+        <Link className='bt	' to="/Login">Submit</Link>
+        </Link>
+      }
     </form>
     </div>
   )
