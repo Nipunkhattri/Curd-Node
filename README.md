@@ -16,6 +16,8 @@ Node JS , React JS , Typescript , MYSQL , Postman
 
 - **Postman Collections:** [https://www.getpostman.com/collections/769c5f04be2bf6266abc](https://api.postman.com/collections/20884288-deba91eb-ffff-401f-9d8e-5ab8b59c9b94?access_key=PMAT-01H006CAHH7CFX56P60RFXZBJE)
 
+Base Url for postman/deployed backend Url = https://backend-curd.onrender.com/
+
 ## API Endpoints:
 
 ```http
